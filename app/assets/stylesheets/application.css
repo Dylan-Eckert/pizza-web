@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+.navbar {
+
+}
+.hr {
+  border: 2px solid black;
+}
