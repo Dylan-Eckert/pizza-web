@@ -37,3 +37,52 @@ $(function() {
     });
   });
 })
+
+function addToCart() {
+  $.ajax('http://localhost:3001/users', {
+    method: 'POST',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      productId
+    })
+  })
+  .done(function(user) {
+    console.log(user);
+  })
+  .fail(function() {
+    console.log('error');
+  })
+  .always(function() {
+    console.log('complete');;
+  });
+})
+
+$(function() {
+  var items = $("#items")
+
+    $.ajax('http://localhost:3001/menus/57a90c8c228ef0dd0425c50e', {
+      method: 'GET',
+      dataType: 'json',
+      contentType: 'application/json',
+    })
+    .done(function(menu) {
+      console.log(menu);
+      $.each(menu.items, function (index, menuItem){
+        var item = $("<li><h2></h2><h3></h3><p></p><a></a></li>");
+        item.find('h2').html(menuItem.title);
+        item.find('h3').html(menuItem.price);
+        item.find('p').html(menuItem.ingredients);
+        item.find('a').on('click', function(){
+
+        });
+        items.append(item);
+      });
+    })
+    .fail(function() {
+      console.log('error');
+    })
+    .always(function() {
+      console.log('complete');;
+    });
+})
