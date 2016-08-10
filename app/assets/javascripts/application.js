@@ -14,25 +14,26 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-$(function(){
+$(function() {
   $('#btn-signup').on('click', function() {
-    // do something
-    console.log('signup triggered')
-    $.ajax({
-            url: 'http://localhost:3001/users',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                        username:$("#username").val(),
-                        email:$("#email").val(),
-                        password:$("#password").val()
-            },
-            error: function() {
-                console.log("error");
-            },
-            success:function(user){
-                console.log(user);
-            }
-        });
+    $.ajax('http://localhost:3001/users', {
+      method: 'POST',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        password: $('#password').val(),
+        username: $('#username').val(),
+        email: $('#email').val()
+      })
+    })
+    .done(function(user) {
+      console.log(user);
+    })
+    .fail(function() {
+      console.log('error');
+    })
+    .always(function() {
+      console.log('complete');;
+    });
   });
 })
